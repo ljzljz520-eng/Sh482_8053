@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "metrics": {
+    "production_loc": 2426,
+    "production_files": 42,
+    "production_packages": 11,
+    "test_files": 9,
+    "production_functions": 159,
+    "decision_points": 345
+  },
+  "persistence": {
+    "module": "go.etcd.io/bbolt",
+    "entities": [
+      "Record",
+      "AuditEvent",
+      "Workflow",
+      "Attachment"
+    ],
+    "reopen_test": "TestPersistenceSurvivesReopen"
+  },
+  "workflows": [
+    {
+      "steps": [
+        "register a procurement lead",
+        "send the lead for review",
+        "approve and publish the summary",
+        "archive the completed lead"
+      ],
+      "test": "TestWorkflowCreateReviewArchive"
+    },
+    {
+      "steps": [
+        "search by company or text",
+        "select the matching record",
+        "update owner or procurement need",
+        "publish the refreshed summary"
+      ],
+      "test": "TestWorkflowSearchUpdatePublish"
+    },
+    {
+      "steps": [
+        "read deterministic CSV rows",
+        "validate each imported row",
+        "persist valid records",
+        "report successes and errors"
+      ],
+      "test": "TestWorkflowImportReport"
+    }
+  ]
+}
